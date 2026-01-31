@@ -375,6 +375,101 @@ if (!file_exists('config.php')) { header("Location: setup.php"); exit; }
                 color: red;
                 border: 1px solid red;
             }
+
+            /* --- Mafia Chat Style --- */
+        :root {
+            --pri: #9575cd; --pri-dark: #7e57c2; --acc: #e57373; 
+            --bg: #f3e5f5; --chat-bg: #ede7f6; --me: #d1c4e9; 
+        }
+
+        /* 전투 화면 전체 레이아웃 (채팅앱처럼) */
+        #view-battle {
+            display: flex; flex-direction: column; height: 100vh; background: var(--bg);
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        /* 헤더 */
+        .battle-header {
+            padding: 15px; background: white; border-bottom: 1px solid #e1bee7;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 10;
+        }
+        .battle-title { font-weight: 900; color: var(--pri-dark); font-size: 18px; }
+
+        /* 채팅 영역 (핵심) */
+        .chat-area {
+            flex: 1; overflow-y: auto; padding: 20px; 
+            background: var(--chat-bg); display: flex; flex-direction: column; gap: 15px;
+        }
+
+        /* 메시지 버블 스타일 */
+        .msg-row { display: flex; align-items: flex-end; gap: 10px; max-width: 85%; }
+        .msg-row.me { align-self: flex-end; flex-direction: row-reverse; }
+        .msg-row.system { align-self: center; max-width: 90%; justify-content: center; margin: 10px 0; }
+
+        .msg-profile { 
+            width: 40px; height: 40px; border-radius: 14px; 
+            background: #ddd; overflow: hidden; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .msg-profile img { width: 100%; height: 100%; object-fit: cover; }
+
+        .msg-content { display: flex; flex-direction: column; gap: 4px; }
+        .msg-name { font-size: 12px; color: #7e57c2; font-weight: bold; margin-left: 2px; }
+        .msg-row.me .msg-name { text-align: right; margin-right: 2px; }
+
+        .msg-bubble {
+            padding: 10px 16px; border-radius: 18px; font-size: 15px; line-height: 1.5;
+            background: white; color: #455a64; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            border-top-left-radius: 4px; /* 말풍선 꼬리 효과 */
+        }
+        .msg-row.me .msg-bubble {
+            background: var(--me); color: #5e35b1;
+            border-radius: 18px; border-top-right-radius: 4px;
+        }
+        .msg-row.system .msg-bubble {
+            background: rgba(0,0,0,0.05); color: #555; font-size: 13px;
+            border-radius: 20px; padding: 6px 15px; text-align: center;
+        }
+        .msg-row.enemy .msg-bubble {
+            background: #ffebee; color: #c62828; border: 1px solid #ffcdd2;
+        }
+
+        /* 하단 입력바 & 메뉴 */
+        .input-dock {
+            background: white; padding: 10px 15px; 
+            border-top: 1px solid #f0f0f0; display: flex; gap: 8px; align-items: center;
+        }
+        .chat-input {
+            flex: 1; padding: 12px; border: 1px solid #e1bee7; 
+            border-radius: 20px; background: #fafafa; font-size: 15px;
+        }
+        .btn-send {
+            width: 45px; height: 45px; border-radius: 50%; background: var(--pri); 
+            color: white; border: none; font-size: 18px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(126, 87, 194, 0.3);
+        }
+
+        /* 액션 메뉴 (하단 오버레이) */
+        #action-sheet {
+            display: none; background: white; padding: 20px; 
+            border-radius: 24px 24px 0 0; box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+        .action-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .act-card {
+            background: #f8f9fa; border: 1px solid #eee; border-radius: 16px;
+            padding: 15px 0; text-align: center; cursor: pointer; transition: 0.2s;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            color: #546e7a; font-weight: bold; font-size: 13px;
+        }
+        .act-card:active { transform: scale(0.95); background: #eceff1; }
+        .act-card.atk { color: #e57373; background: #ffebee; border-color: #ffcdd2; }
+        .act-card.def { color: #64b5f6; background: #e3f2fd; border-color: #bbdefb; }
+        .act-card i { font-size: 24px; margin-bottom: 4px; }
         </style>
     </head>
     <body>
@@ -477,68 +572,68 @@ if (!file_exists('config.php')) { header("Location: setup.php"); exit; }
             </div>
         </div>
 
-        <div id="view-battle" class="spa-view">
-            <div class="battle-header">
-                <span>Room
-                    <span id="bt-room-id">0</span></span>
-                <span
-                    onclick="App.exitBattle()"
-                    style="cursor:pointer; background:rgba(255,255,255,0.2); padding:5px 10px; border-radius:10px;">나가기</span>
-            </div>
-
-            <div id="battle-wait" class="wait-room" style="display:none;">
-                <h2 style="margin-bottom:10px;">대기실</h2>
-                <div style="color:#aaa; margin-bottom:30px;">준비가 되면 버튼을 누르세요.</div>
-                <div style="font-size:20px; font-weight:bold; margin-bottom:50px;">
-                    <span id="wait-p1" style="color:#3498db;">나</span>
-                    <span class="vs-badge">VS</span>
-                    <span id="wait-p2" style="color:#e74c3c;">???</span>
+<div id="view-battle" class="spa-view">
+            <div id="battle-wait" class="wait-room" style="display:none; height:100%; flex-direction:column; align-items:center; justify-content:center;">
+                <h2 style="margin-bottom:30px; color:var(--primary);"><i class="fa-solid fa-clock"></i> 대기실</h2>
+                
+                <div class="vs-badge" style="font-size:24px; margin-bottom:20px;">
+                    <span id="wait-p1">???</span> VS <span id="wait-p2">???</span>
                 </div>
-                <button id="btn-ready" class="ready-btn" onclick="App.toggleReady()">준비</button>
-                <p id="wait-status" style="margin-top:20px; color:#999; font-size:14px;">상대를 기다리는 중...</p>
+                
+                <p id="wait-status" style="color:#777; margin-bottom:40px; font-size:18px;">상대를 기다리는 중...</p>
+                
+                <div style="display:flex; gap:10px;">
+                    <button id="btn-ready" class="ready-btn" onclick="App.toggleReady()">준비</button>
+                    <button class="ready-btn" style="background:#e74c3c;" onclick="App.api({cmd:'battle_exit'}); App.showView('lobby');">나가기</button>
+                </div>
             </div>
 
-            <div id="battle-play" style="display:none; flex:1; flex-direction:column;">
-                <div class="battle-field">
-                    <div class="mob-info">
-                        <div id="mob-name" style="font-weight:bold; font-size:20px; color:white;">???</div>
-                        <div class="hp-bar">
-                            <div id="mob-hp" class="hp-fill"></div>
+            <div id="battle-play" style="display:none; flex-direction:column; height:100%;">
+                <div class="battle-header">
+                    <div class="battle-title"><i class="fa-solid fa-comments"></i> BATTLE <span id="bt-room-id" style="font-size:12px; color:#aaa;">#12</span></div>
+                    <div>
+                        <span id="enemy-hp-pill" style="background:#e57373; color:white; padding:4px 8px; border-radius:12px; font-size:11px; font-weight:bold;">적 HP ?/?</span>
+                        <button onclick="App.act('run')" style="background:none; border:none; color:#999; font-size:18px; margin-left:10px;"><i class="fa-solid fa-person-running"></i></button>
+                    </div>
+                </div>
+
+                <div id="bt-chat-box" class="chat-area">
+                    </div>
+
+                <div id="action-sheet">
+                    <div id="menu-attack" class="action-grid" style="display:none;">
+                        <div class="act-card atk" onclick="App.act('attack')">
+                            <i class="fa-solid fa-khanda"></i> 기본 공격
                         </div>
-                        <div id="mob-hp-txt" style="font-size:12px; margin-top:3px; color:#ddd;">0 / 0</div>
+                        <div class="act-card" onclick="alert('스킬 준비중')">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> 스킬
+                        </div>
+                        <div class="act-card" onclick="location.href='inventory.php'">
+                            <i class="fa-solid fa-bag-shopping"></i> 가방
+                        </div>
                     </div>
-                    <div class="mob-sprite">
-                        <i class="fa-solid fa-ghost"></i>
+                    <div id="menu-defend" class="action-grid" style="display:none;">
+                        <div style="grid-column:1/-1; text-align:center; color:#e57373; margin-bottom:5px; font-weight:bold;">
+                            ⚠️ 공격이 들어옵니다!
+                        </div>
+                        <div class="act-card def" onclick="App.defend('counter')">
+                            <i class="fa-solid fa-gavel"></i> 반격 (주사위)
+                        </div>
+                        <div class="act-card def" onclick="App.defend('dodge')">
+                            <i class="fa-solid fa-wind"></i> 회피 (민첩)
+                        </div>
+                        <div class="act-card" onclick="App.defend('hit')">
+                            <i class="fa-solid fa-shield-halved"></i> 방어 (뎀감)
+                        </div>
                     </div>
                 </div>
-                <div class="battle-ui-bottom">
-                    <div
-                        style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:bold;">
-                        <span id="my-name">나</span>
-                        <span id="my-hp-txt" style="color:#2ecc71;">100/100</span>
-                    </div>
-                    <div id="bt-log" class="log-box">전투 준비 중...</div>
-                    <div id="ctrl-main" class="ctrl-grid">
-                        <button class="btn-act" style="background:#e74c3c;" onclick="App.act('attack')">공격</button>
-                        <button
-                            class="btn-act"
-                            style="background:#f39c12;"
-                            onclick="location.href='inventory.php'">가방</button>
-                        <button
-                            class="btn-act"
-                            style="background:#95a5a6; grid-column:span 2;"
-                            onclick="App.act('run')">도망치기</button>
-                    </div>
-                    <div id="ctrl-def" class="ctrl-grid" style="display:none;">
-                        <button
-                            class="btn-act"
-                            style="background:#e67e22;"
-                            onclick="App.defend('counter')">반격</button>
-                        <button
-                            class="btn-act"
-                            style="background:#3498db;"
-                            onclick="App.defend('dodge')">회피</button>
-                    </div>
+
+                <div class="input-dock">
+                    <button onclick="App.toggleActionMenu()" style="border:none; background:none; font-size:20px; color:#9575cd;">
+                        <i class="fa-solid fa-circle-plus"></i>
+                    </button>
+                    <input type="text" id="bt-chat-input" class="chat-input" placeholder="대화하기..." onkeyup="if(event.key==='Enter') App.sendBattleChat()">
+                    <button class="btn-send" onclick="App.sendBattleChat()"><i class="fa-solid fa-paper-plane"></i></button>
                 </div>
             </div>
         </div>
@@ -623,11 +718,9 @@ const App = {
     },
 
     async poll() {
-        // poll에서 에러가 나도 멈추지 않도록 예외 처리
         const res = await this.api({ cmd: 'get_my_info' });
         
         if (res.status === 'error' || !res.data) {
-            // 로그인 정보가 없으면 로그인 화면으로
             this.showView('login');
             return;
         }
@@ -646,6 +739,14 @@ const App = {
 
         // 2. 전투 방 상태 확인
         if (res.active_room) {
+            // [추가] 거절당했을 경우 처리
+            if (res.active_room.status === 'REJECTED') {
+                alert("상대방이 결투를 거절했습니다.");
+                await this.api({ cmd: 'battle_exit' }); // 확인 누르면 방 완전히 나가기(END 처리)
+                this.showView('lobby');
+                return;
+            }
+
             this.roomId = res.active_room.room_id;
             this.showView('battle');
             document.getElementById('bt-room-id').innerText = this.roomId;
@@ -658,7 +759,6 @@ const App = {
                 this.switchBattleMode('wait');
             }
         } else {
-            // 전투 중이 아닌데 전투 화면에 있다면 로비로 이동
             const isBattleView = document.getElementById('view-battle').classList.contains('active');
             const isNoView = !document.querySelector('.spa-view.active');
             
@@ -786,18 +886,32 @@ const App = {
         }
     },
 
+
+
+
+
     async acceptChallenge() {
-        const res = await this.api({ cmd: 'battle_join', room_id: this.challengeId });
-        if(res.status === 'success') {
-            document.getElementById('alert-overlay').style.display = 'none';
-            await this.poll();
-        } else {
-            alert(res.message);
+        // [수정] 버튼 누르자마자 일단 창부터 닫기 (시야 확보)
+        document.getElementById('alert-overlay').style.display = 'none';
+
+        if (this.challengeId) {
+            const res = await this.api({ cmd: 'battle_join', room_id: this.challengeId });
+            if(res.status === 'success') {
+                this.challengeId = 0;
+                await this.poll(); // 대기실로 이동
+            } else {
+                alert(res.message);
+            }
         }
     },
 
-    rejectChallenge() {
+    async rejectChallenge() {
+        if (this.challengeId) {
+            // 서버에 거절 요청을 보냄
+            await this.api({ cmd: 'battle_reject', room_id: this.challengeId });
+        }
         document.getElementById('alert-overlay').style.display = 'none';
+        this.challengeId = 0;
     },
 
     // --- 대기실 및 전투 ---
@@ -850,51 +964,93 @@ const App = {
         }
     },
 
-    async refreshBattle() {
-        const res = await this.api({ cmd: 'battle_refresh' });
-        
-        // 전투 종료 처리
-        if (res.status === 'end') {
-            alert(res.win ? "🏆 승리!" : "💀 패배/종료");
-            await this.exitBattle();
-            return;
-        }
-        if (res.status !== 'battle') return;
+toggleActionMenu: function() {
+        const sheet = document.getElementById('action-sheet');
+        sheet.style.display = (sheet.style.display === 'block') ? 'none' : 'block';
+    },
 
-        // 몬스터 정보
-        const enemy = res.enemies[0];
-        if (enemy) {
-            document.getElementById('mob-name').innerText = enemy.name;
-            const pct = (enemy.hp_cur / enemy.hp_max) * 100;
-            document.getElementById('mob-hp').style.width = Math.max(0, pct) + '%';
-            document.getElementById('mob-hp-txt').innerText = `${enemy.hp_cur} / ${enemy.hp_max}`;
-        }
+    refreshBattle: function() {
+        if (!this.roomId) return;
+        this.api({ cmd: 'battle_refresh' }).then(res => {
+            if (res.status === 'end') {
+                alert(res.win ? "승리!" : "전투 종료");
+                this.roomId = 0;
+                this.showView('lobby');
+                return;
+            }
+            if (res.status !== 'battle') return;
 
-        // 내 정보
-        const me = res.players.find(p => p.id == this.myId);
-        if (me) {
-            document.getElementById('my-name').innerText = me.name;
-            document.getElementById('my-hp-txt').innerText = `${me.hp_cur} / ${me.hp_max}`;
-        }
+            // 1. 몬스터 정보 (헤더에 작게 표시)
+            const mob = res.enemies[0];
+            if (mob) {
+                document.getElementById('enemy-hp-pill').innerText = `${mob.name}: ${mob.hp_cur}/${mob.hp_max}`;
+            }
 
-        // 턴 제어 UI
-        const turn = res.room.turn_status;
-        document.getElementById('ctrl-main').style.display = (turn === 'player') ? 'grid' : 'none';
-        document.getElementById('ctrl-def').style.display = (turn === 'player_defend') ? 'grid' : 'none';
+            // 2. 턴 상태에 따른 메뉴 제어
+            const sheet = document.getElementById('action-sheet');
+            const menuAtk = document.getElementById('menu-attack');
+            const menuDef = document.getElementById('menu-defend');
+            const turn = res.room.turn_status;
 
-        // 로그 출력
-        const logBox = document.getElementById('bt-log');
-        let html = '';
-        res.logs.forEach(l => {
-            const c = l.type === 'system' ? '#f39c12' : (l.type === 'player' ? '#2ecc71' : '#e74c3c');
-            html += `<div style="color:${c}; margin-bottom:4px;">${l.msg}</div>`;
+            // 메뉴 기본 상태
+            menuAtk.style.display = 'none';
+            menuDef.style.display = 'none';
+
+            if (turn === 'player') {
+                sheet.style.display = 'block'; // 내 턴이면 메뉴 켬
+                menuAtk.style.display = 'grid';
+            } 
+            else if (turn === 'defend_' + this.myId) {
+                sheet.style.display = 'block'; // 방어 턴이면 메뉴 켬
+                menuDef.style.display = 'grid';
+            } 
+            else {
+                // 남의 턴이면 메뉴 닫기 (채팅에 집중)
+                // 단, 사용자가 수동으로 열었을 수도 있으니 강제로 닫진 않음
+            }
+
+            // 3. 채팅/로그 렌더링 (Mafia Style)
+            const box = document.getElementById('bt-chat-box');
+            let html = '';
+            
+            res.logs.forEach(l => {
+                let typeClass = 'other';
+                let profileImg = l.profile ? l.profile : 'assets/images/user.png'; // 기본 이미지
+                let name = l.name || 'System';
+
+                if (l.uid == this.myId) {
+                    typeClass = 'me';
+                    profileImg = res.my_img || profileImg; // 내 프로필
+                }
+                
+                if (l.type === 'system' || l.type === 'enemy_atk') {
+                    typeClass = 'system';
+                    if(l.type === 'enemy_atk') typeClass += ' enemy'; // 적 공격은 빨간색
+                }
+
+                if (typeClass === 'system') {
+                    html += `
+                        <div class="msg-row ${typeClass}">
+                            <div class="msg-bubble">${l.msg}</div>
+                        </div>`;
+                } else {
+                    // 일반 채팅 (프로필 + 이름 + 말풍선)
+                    html += `
+                        <div class="msg-row ${typeClass}">
+                            <div class="msg-profile"><img src="${profileImg}"></div>
+                            <div class="msg-content">
+                                <div class="msg-name">${name}</div>
+                                <div class="msg-bubble">${l.msg}</div>
+                            </div>
+                        </div>`;
+                }
+            });
+
+            if (box.innerHTML !== html) {
+                box.innerHTML = html;
+                box.scrollTop = box.scrollHeight;
+            }
         });
-        
-        // 로그가 다를 때만 업데이트 (스크롤 튀는 현상 방지)
-        if (logBox.innerHTML !== html) {
-            logBox.innerHTML = html;
-            logBox.scrollTop = logBox.scrollHeight;
-        }
     },
 
     async act(type) {
@@ -908,17 +1064,51 @@ const App = {
         this.refreshBattle();
     },
 
+    // [index.php] App 객체 내부
+
+    // 1. 방어 함수 수정 (room_id 누락 해결)
     async defend(type) {
-        await this.api({ cmd: 'battle_action_defend', type });
+        if (!this.roomId) return alert("방 번호 오류");
+        
+        // [수정] room_id를 반드시 같이 보내야 함!
+        const res = await this.api({ 
+            cmd: 'battle_action_defend', 
+            room_id: this.roomId, 
+            type: type 
+        });
+        
+        if (res.status === 'success') {
+            this.refreshBattle();
+        } else {
+            alert(res.message || "오류가 발생했습니다.");
+        }
+    },
+
+    // 2. 채팅 전송 함수
+    async sendBattleChat() {
+        const input = document.getElementById('bt-chat-input');
+        const msg = input.value.trim();
+        if (!msg) return;
+        
+        input.value = ''; // 내용 비우기
+        input.style.height = '40px'; // 높이 초기화
+        
+        // 서버 전송
+        await this.api({ cmd: 'battle_chat', room_id: this.roomId, msg: msg });
         this.refreshBattle();
     },
 
-    async exitBattle() {
-        await this.api({ cmd: 'battle_exit' });
-        this.isReady = false;
-        document.getElementById('btn-ready').classList.remove('active');
-        await this.poll();
-    }
+    // 3. 엔터키 핸들러 (신규)
+    handleChatKey(e) {
+        if (e.key === 'Enter') {
+            if (!e.shiftKey) {
+                // Shift 없이 엔터만 누르면 전송
+                e.preventDefault();
+                this.sendBattleChat();
+            }
+            // Shift+Enter는 기본 동작(줄바꿈) 허용
+        }
+    },
 };
 
 window.onload = () => App.init();
