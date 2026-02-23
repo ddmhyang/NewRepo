@@ -1,0 +1,494 @@
+* {
+    box-sizing: border-box;
+}
+/* ----- FONT FACE ----- */
+@font-face {
+    font-family: 'Fre1';
+    src: url("../fonts/Freesentation-1Thin.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Fre3';
+    src: url("../fonts/Freesentation-3Light.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Fre5';
+    src: url("../fonts/Freesentation-5Medium.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Fre9';
+    src: url("../fonts/Freesentation-9Black.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ----- LAYOUT & BASIC ----- */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    overflow: hidden;
+    position: relative;
+    visibility: hidden;
+    transition: background-color 1s ease-in-out;
+}
+.container{
+    width: 1440px;
+    height: 900px;
+    flex-shrink: 0;
+    aspect-ratio: 3/2;
+    background: url("../img/back.jpg") no-repeat center center;
+    background-size: cover;
+    background-color: #000000;
+    transform-origin: top left;
+    position: absolute;
+    transform: scale(0);
+    font-family: 'Fre3';
+    color:#7078A7;
+    transition: background-color 1s ease-in-out;
+}
+main {
+    position: absolute;
+    top: 182px;
+    left: 414px;
+    width: 926px;
+    height: 667px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    border: 5px solid #7078A7;
+    background: rgba(255, 255, 255, 0.70);
+    overflow-y: auto;
+}
+main::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+.page-container,
+.gallery-container, .form-page-container, .view-container,
+.password-form-container, .settings-container{
+    margin: 80px;
+    color: #7078A7;
+    font-family: 'Fre3';
+    font-size: 20px;
+    font-style: normal;
+    line-height: normal;
+}
+.dday{
+    position: absolute;
+    top: 20px;
+    left: 53px;
+    color: #FFF;
+    text-align: center;
+    font-family: 'Fre9';
+    font-size: 32px;
+    font-style: normal;
+    line-height: normal;
+}
+
+/* ----- BUTTONS (통합된 부분) ----- */
+/* 1. 모든 버튼의 공통 스타일 */
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    font-family: 'Fre5';
+    font-size: 16px;
+    text-decoration-line: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    margin-right: 10px; /* 기본 간격 */
+}
+.btn:last-child {
+    margin-right: 0; /* 마지막 버튼은 간격 제거 */
+}
+
+/* 2. 색상 및 형태에 따른 스타일 */
+.btn-primary {
+    background-color:#7078A7;
+    color: white;
+}
+.btn-secondary {
+    background-color: white;
+    color: #7078A7;
+}
+.btn-small {
+    padding: 8px 15px;
+    font-size: 14px;
+}
+.btn-delete {
+    background-color: #7078A7;
+    color: white;
+}
+
+/* 게시물 내 목록가기 버튼 */
+.btn-back-to-list {
+    display: inline-block;
+    padding: 12px 35px;
+    background-color: #7078A7;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.file-upload-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #7078A7;
+    color: white;
+    font-family: 'Fre5';
+    font-size: 12px;
+    border: none;
+    border-radius: 10px;
+    text-decoration-line: none;
+    cursor: pointer;
+    width: 72px;
+}
+
+/* ----- POST & VIEW ----- */
+.view-container hr {
+    border: none;
+    border-top: 3px solid #7078A7;
+}
+.post-meta {
+    text-align: right;
+    margin-bottom: 15px;
+}
+.post-date {
+    text-align: right;
+    color: #7078A7;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+.post-content {
+    line-height: 1.8;
+    min-height: 250px;
+}
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+.post-actions {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* ----- GALLERY ----- */
+.gallery-container > h2{
+    font-family: 'Fre9';
+}
+.gallery-grid {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 70px;
+}
+.gallery-item {
+    text-decoration: none;
+    color: #333;
+    border-radius: 15px;
+    overflow: hidden;
+}
+.item-thumbnail {
+    width: 100%;
+    padding-top: 100%;
+    background-color:#B1C8DA;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.gallery-item h3 {
+    padding: 10px;
+    font-size: 16px;
+    margin: 0;
+    color: #7078A7;
+}
+
+/* ----- TRPG TIMELINE ----- */
+.timeline-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.timeline-container > .add-btn{ /* add-btn 위치 재정의 */
+    position: absolute;
+    left: 770px;
+    top: 50px;
+    z-index: 50;
+}
+.timeline-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 50px;
+}
+.timeline-wrapper::-webkit-scrollbar {
+    display: none;
+}
+.timeline-events {
+    min-width: 750px;
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 50px;
+    position: relative;
+    z-index: 2;
+    gap: 100px;
+}
+.timeline-line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: #7078A7;
+    top: 50%;
+    left: 0;
+    z-index: 1;
+}
+.timeline-item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 150px;
+}
+.timeline-item.top {
+    justify-content: flex-end;
+    padding-bottom: 230px;
+}
+.timeline-item.bottom {
+    justify-content: flex-start;
+    padding-top: 320px;
+}
+.timeline-item a {
+    text-decoration: none;
+    color:#7078A7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.timeline-item .item-thumbnail {
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background-color: #7078A750;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 15px;
+}
+.item-text h3 {
+    font-size: 14px;
+    margin: 0;
+    max-width: 150px;
+    white-space: normal;
+    word-break: keep-all;
+}
+
+/* ----- FORMS ----- */
+.form-page-container {
+    max-width: 800px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+.login-form, .password_content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -65%);
+    text-align: center;
+}
+.login-form > form {
+    display: flex;
+    gap: 26px;
+    flex-direction: column;
+    align-items: center;
+}
+.login-form > form > input,
+.password_content > form > input {
+    color: #7078A7;
+    width: 399px;
+    height: 90px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    border: 3px solid #7078A7;
+    background: rgba(255, 255, 255, 0.30);
+    text-align: center;
+    margin-top: 20px;
+}
+.login-form > form > button,
+.password_content > form > button {
+    color: #7078A7;
+    width: 252px;
+    height: 68px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    border: 3px solid #7078A7;
+    background: rgba(255, 255, 255, 0.30);
+    margin-top: 13px;
+}
+
+/* ----- CHAT ----- */
+#chat-overlay {
+    position: absolute;
+    top: 224px;
+    left: 632px;
+    width: 490px;
+    height: 676px;
+    flex-shrink: 0;
+    border-radius: 30px 30px 0 0;
+    background: #111948;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+#chat-overlay .chat-header {
+    cursor: pointer;
+    height: 30px;
+}
+.chat-container {
+    position: absolute;
+    top: 9.25px;
+    left: 10px;
+    width: 470px;
+    height: 666.752px;
+    flex-shrink: 0;
+    border-radius: 26px 26px 0 0;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.80) 0%, rgba(255, 255, 255, 0.80) 100%), url('../img/phone_back.png') no-repeat center center;
+    background-size: cover;
+    font-family: 'Fre3';
+}
+.chat-window {
+    width: 470px;
+    height: 617px;
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+.chat-window::-webkit-scrollbar{
+    width: 0px;
+    height: 0px;
+}
+.message-row {
+    display: flex;
+    margin-bottom: 15px;
+    max-width: 70%;
+    align-items: flex-start;
+}
+.message-row.sent {
+    margin-left: auto;
+    flex-direction: row-reverse;
+}
+.message-row.received {
+    margin-right: auto;
+}
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ccc;
+    background-size: cover;
+    background-position: center;
+    margin: 0 10px;
+}
+.message-bubble {
+    padding: 10px 15px;
+    border-radius: 18px;
+    position: relative;
+}
+.message-row.sent .message-bubble {
+    background: #7078A7;
+    color: white;
+    border-top-right-radius: 5px;
+}
+.message-row.received .message-bubble {
+    background: #e9e9eb;
+    color: #333;
+    border-top-left-radius: 5px;
+}
+.character-name {
+    font-size: 12px;
+    font-family: 'Fre5';
+    margin-bottom: 5px;
+    color: #888;
+}
+.message-text {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+.chat-input-area {
+    padding-top: 10px;
+}
+.chat-input-area > form > select,
+.chat-input-area input::placeholder{
+    color: #7078A7;
+}
+.chat-input-area form {
+    display: flex;
+}
+.chat-input-area select {
+    padding: 10px;
+    border: 1px solid #cccccc00;
+    border-top: 1px solid #7078A7;
+    border-right: 1px solid #7078A7;
+}
+.chat-input-area input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #cccccc00;
+    border-top: 1px solid #7078A7;
+    border-left: none;
+}
+.chat-input-area button {
+    padding: 10px 15px;
+    border: none;
+    border-top: 1px solid #7078A7;
+    background: #7078A7;
+    color: white;
+    cursor: pointer;
+}
+
+/* ----- ETC ----- */
+.note-modal-backdrop {
+    background-color: transparent !important;
+    z-index: -1 !important
+}
+.settings-container > form > input#file-upload-button {
+    display: inline-block;
+    background-color: #7078A7;
+    color: white;
+    font-family: 'Fre5';
+    padding: 8px 16px;
+    font-size: 12px;
+    border: none;
+    border-radius: 10px;
+    text-decoration-line: none;
+    cursor: pointer;
+    width: 72px;
+}
