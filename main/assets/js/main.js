@@ -36,8 +36,6 @@ $(document).ready(function() {
             const url = `${page}.php${params ? '?' + params : ''}`;
             loadPage(url);
         }
-        
-        updateSideNav(page); 
     }
 
 
@@ -107,22 +105,23 @@ $(document).ready(function() {
         });
     });
     
-    //삭제
+//삭제
     $(document).on('click', '.delete-btn', function() {
         if (!confirm('정말로 삭제하시겠습니까?')) return;
 
         const id = $(this).data('id');
-        const type = $(this).data('type');
+        const tableName = $(this).data('table');
+        const returnPage = $(this).data('return');
 
         $.ajax({
             url: 'ajax_delete_gallery.php',
             type: 'POST',
-            data: { id: id },
+            data: { id: id, table_name: tableName },
             dataType: 'json',
             success: function(response) {
                 if(response.success) {
                     alert('삭제되었습니다.');
-                    window.location.hash = `#/${type}`;
+                    window.location.hash = `#/${returnPage}`;
                 } else {
                     alert('삭제 실패: ' + response.message);
                 }
@@ -134,38 +133,7 @@ $(document).ready(function() {
     });
     
 
-    //뮤직!!!
-    const musicPlayer = document.getElementById('music-player');
-    const playButton = $('.index_panel2');
 
-    if (musicPlayer.paused) {
-        playButton.removeClass('playing');
-    } else {
-        playButton.addClass('playing');
-    }
-
-    playButton.on('click', function() {
-        if (musicPlayer.paused) {
-            musicPlayer.play();
-            $(this).addClass('playing');
-        } else {
-            musicPlayer.pause();
-            $(this).removeClass('playing');
-        }
-    });
-
-    $(musicPlayer).on('ended', function() {
-        playButton.removeClass('playing');
-    });
-    
-    $(document).one('click', function() {
-        if (musicPlayer.paused) {
-            musicPlayer.play().then(() => {
-                playButton.addClass('playing');
-            }).catch(error => {
-            });
-        }
-    });
 });
 
 

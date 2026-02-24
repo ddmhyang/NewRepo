@@ -1,6 +1,16 @@
 * {
     box-sizing: border-box;
 }
+
+a,
+a:link, 
+a:visited, 
+a:hover, 
+a:active {
+    text-decoration: none;
+    color: #A10000;
+}
+
 /* ----- FONT FACE ----- */
 @font-face {
     font-family: 'Fre1';
@@ -44,27 +54,24 @@ html {
     width: 1440px;
     height: 900px;
     flex-shrink: 0;
-    aspect-ratio: 3/2;
-    background: url("../img/back.jpg") no-repeat center center;
+    aspect-ratio: 1440/900;
     background-size: cover;
-    background-color: #000000;
+    background-color: #FAF4E2;
     transform-origin: top left;
     position: absolute;
     transform: scale(0);
     font-family: 'Fre3';
-    color:#7078A7;
+    color:#A10000;
     transition: background-color 1s ease-in-out;
 }
 main {
     position: absolute;
-    top: 182px;
-    left: 414px;
-    width: 926px;
-    height: 667px;
+    left: 0px;
+    top: 0px;
+    width: 1440px;
+    height: 900px;
     flex-shrink: 0;
-    border-radius: 30px;
-    border: 5px solid #7078A7;
-    background: rgba(255, 255, 255, 0.70);
+    /* background: rgba(178, 60, 60, 0.7); */
     overflow-y: auto;
 }
 main::-webkit-scrollbar {
@@ -74,8 +81,7 @@ main::-webkit-scrollbar {
 .page-container,
 .gallery-container, .form-page-container, .view-container,
 .password-form-container, .settings-container{
-    margin: 80px;
-    color: #7078A7;
+    color: #A10000;
     font-family: 'Fre3';
     font-size: 20px;
     font-style: normal;
@@ -95,7 +101,7 @@ main::-webkit-scrollbar {
 
 /* ----- BUTTONS (통합된 부분) ----- */
 /* 1. 모든 버튼의 공통 스타일 */
-.btn {
+.btn, .btn-action, .add-btn, button[type="submit"], .cancel_btn{
     display: inline-block;
     padding: 12px 20px;
     font-family: 'Fre5';
@@ -112,29 +118,29 @@ main::-webkit-scrollbar {
 }
 
 /* 2. 색상 및 형태에 따른 스타일 */
-.btn-primary {
-    background-color:#7078A7;
-    color: white;
+.btn-primary, .btn-action, .add-btn, button[type="submit"]  {
+    background-color:#A10000;
+    color: #fafafa !important;
 }
-.btn-secondary {
-    background-color: white;
-    color: #7078A7;
+.btn-secondary, .btn-action.delete-btn, .cancel_btn {
+    background-color: #fafafa;
+    color: #A10000 !important;
 }
 .btn-small {
     padding: 8px 15px;
     font-size: 14px;
 }
 .btn-delete {
-    background-color: #7078A7;
-    color: white;
+    background-color: #A10000;
+    color: #fafafa;
 }
 
 /* 게시물 내 목록가기 버튼 */
 .btn-back-to-list {
     display: inline-block;
     padding: 12px 35px;
-    background-color: #7078A7;
-    color: white;
+    background-color: #A10000;
+    color: #fafafa !important;
     border-radius: 5px;
     text-decoration: none;
     font-size: 16px;
@@ -144,21 +150,21 @@ main::-webkit-scrollbar {
 .file-upload-button {
     display: inline-block;
     padding: 8px 16px;
-    background-color: #7078A7;
-    color: white;
+    background-color: #A10000;
+    color: #fafafa !important;
     font-family: 'Fre5';
-    font-size: 12px;
+    font-size: 16px;
     border: none;
     border-radius: 10px;
     text-decoration-line: none;
     cursor: pointer;
-    width: 72px;
+    width: 84px;
 }
 
 /* ----- POST & VIEW ----- */
 .view-container hr {
     border: none;
-    border-top: 3px solid #7078A7;
+    border-top: 3px solid #A10000;
 }
 .post-meta {
     text-align: right;
@@ -166,7 +172,7 @@ main::-webkit-scrollbar {
 }
 .post-date {
     text-align: right;
-    color: #7078A7;
+    color: #A10000;
     font-size: 14px;
     margin-bottom: 25px;
 }
@@ -212,7 +218,7 @@ main::-webkit-scrollbar {
     padding: 10px;
     font-size: 16px;
     margin: 0;
-    color: #7078A7;
+    color: #A10000;
 }
 
 /* ----- TRPG TIMELINE ----- */
@@ -255,7 +261,7 @@ main::-webkit-scrollbar {
     position: absolute;
     width: 100%;
     height: 2px;
-    background: #7078A7;
+    background: #A10000;
     top: 50%;
     left: 0;
     z-index: 1;
@@ -276,7 +282,7 @@ main::-webkit-scrollbar {
 }
 .timeline-item a {
     text-decoration: none;
-    color:#7078A7;
+    color:#A10000;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -287,7 +293,7 @@ main::-webkit-scrollbar {
     height: 150px;
     flex-shrink: 0;
     border-radius: 15px;
-    background-color: #7078A750;
+    background-color: #A1000050;
     background-size: cover;
     background-position: center;
     margin-bottom: 15px;
@@ -301,9 +307,21 @@ main::-webkit-scrollbar {
 }
 
 /* ----- FORMS ----- */
-.form-page-container {
-    max-width: 800px;
+.form-page-container, .view-container {
+    position: absolute;
+    top: 200px;
+    left: 90px;
+    width: 1260px;
+    height: 639px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
+
+.form-page-container::-webkit-scrollbar, .view-container::-webkit-scrollbar{
+    width: 0px;
+    height: 0px;
+}
+
 .form-group {
     margin-bottom: 15px;
 }
@@ -321,7 +339,7 @@ main::-webkit-scrollbar {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -65%);
+    transform: translate(-50%, -40%);
     text-align: center;
 }
 .login-form > form {
@@ -332,24 +350,24 @@ main::-webkit-scrollbar {
 }
 .login-form > form > input,
 .password_content > form > input {
-    color: #7078A7;
+    color: #A10000;
     width: 399px;
     height: 90px;
     flex-shrink: 0;
     border-radius: 30px;
-    border: 3px solid #7078A7;
+    border: 3px solid #A10000;
     background: rgba(255, 255, 255, 0.30);
     text-align: center;
     margin-top: 20px;
 }
 .login-form > form > button,
 .password_content > form > button {
-    color: #7078A7;
+    color: #A10000;
     width: 252px;
     height: 68px;
     flex-shrink: 0;
     border-radius: 30px;
-    border: 3px solid #7078A7;
+    border: 3px solid #A10000;
     background: rgba(255, 255, 255, 0.30);
     margin-top: 13px;
 }
@@ -422,8 +440,8 @@ main::-webkit-scrollbar {
     position: relative;
 }
 .message-row.sent .message-bubble {
-    background: #7078A7;
-    color: white;
+    background: #A10000;
+    color: #fafafa !important;
     border-top-right-radius: 5px;
 }
 .message-row.received .message-bubble {
@@ -447,7 +465,7 @@ main::-webkit-scrollbar {
 }
 .chat-input-area > form > select,
 .chat-input-area input::placeholder{
-    color: #7078A7;
+    color: #A10000;
 }
 .chat-input-area form {
     display: flex;
@@ -455,40 +473,152 @@ main::-webkit-scrollbar {
 .chat-input-area select {
     padding: 10px;
     border: 1px solid #cccccc00;
-    border-top: 1px solid #7078A7;
-    border-right: 1px solid #7078A7;
+    border-top: 1px solid #A10000;
+    border-right: 1px solid #A10000;
 }
 .chat-input-area input {
     flex-grow: 1;
     padding: 10px;
     border: 1px solid #cccccc00;
-    border-top: 1px solid #7078A7;
+    border-top: 1px solid #A10000;
     border-left: none;
 }
 .chat-input-area button {
     padding: 10px 15px;
     border: none;
-    border-top: 1px solid #7078A7;
-    background: #7078A7;
-    color: white;
+    border-top: 1px solid #A10000;
+    background: #A10000;
+    color: #fafafa !important;
     cursor: pointer;
 }
 
 /* ----- ETC ----- */
-.note-modal-backdrop {
+.note-modal-backdrop, .modal-backdrop {
     background-color: transparent !important;
     z-index: -1 !important
 }
-.settings-container > form > input#file-upload-button {
-    display: inline-block;
-    background-color: #7078A7;
-    color: white;
-    font-family: 'Fre5';
-    padding: 8px 16px;
-    font-size: 12px;
-    border: none;
-    border-radius: 10px;
-    text-decoration-line: none;
-    cursor: pointer;
-    width: 72px;
+
+
+.main_title{
+    width: 316px;
+    height: 83px;
+    flex-shrink: 0;
+    aspect-ratio: 316/83;
+    background: url("../images/로고.png") no-repeat center center;
+    background-size: cover;
+    transform-origin: top left;
+    position: absolute;
+    top: 32px;
+    left: 101px;
 }
+
+.main_slog{
+    width: 360px;
+    height: 37px;
+    flex-shrink: 0;
+    aspect-ratio: 360/37;
+    background: url("../images/슬로건.png") no-repeat center center;
+    background-size: cover;
+    transform-origin: top left;
+    position: absolute;
+    top: 37px;
+    left: 762px;
+}
+
+nav{
+    position: absolute;
+    top: 90px;
+    left: 532px;
+    display: flex;
+    flex-direction: row;
+    gap: 37px;
+    font-size: 16px;
+    font-family: 'Fre3';
+    color: #A10000 !important;
+}
+
+
+.main_chat{
+    position: absolute;
+    top: 82px;
+    left: 1225px;
+    width: 25px;
+    height: 22px;
+    aspect-ratio: 25/22;
+    background: url("../images/채팅방.png") no-repeat center center;
+    background-size: cover;
+    transform-origin: top left;
+}
+
+.main_login{
+    position: absolute;
+    top: 78px;
+    left: 1290px;
+    width: 23px;
+    height: 31px;
+    aspect-ratio: 23/31;
+    background: url("../images/로그인회원가입.png") no-repeat center center;
+    background-size: cover;
+    transform-origin: top left;
+}
+
+.main_images{
+    position: absolute;
+    top: 146px;
+    left: 90px;
+    width: 1260px;
+    height: 639px;
+    aspect-ratio: 1260/639;
+    background: url("../images/MAIN PHOTO.png") no-repeat center center;
+    background-size: cover;
+    transform-origin: top left;
+}
+
+.main_plus{
+    position: absolute;
+    top: 704px;
+    left: 158px;
+    width: 1104px;
+    height: 196px;
+    aspect-ratio: 1104/196;
+    background: url("../images/하단 팝업.png") no-repeat center center;
+    background-size: cover;
+    transform-origin: top left;
+}
+
+
+.social_nav, .chem_nav, .manga_nav, .art_nav, .video_nav, .free_nav{
+    position: absolute;
+    top: 157px;
+    left: 101px;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    background-color: #f7f5ed !important;
+    border-radius: 15px;
+    width: 240px;
+    height: 700px;
+    justify-content: center;
+    align-items: center;
+}
+
+.chem_nav, .video_nav{
+    gap:150px;
+}
+
+.manga_nav, .art_nav, .free_nav{
+    gap: 200px;
+}
+
+
+.social_page, .chem_page, .manga_page, .art_page, .video_page, .free_page{
+    position: absolute;
+    top: 157px;
+    left: 395px;
+    background-color: #f7f5ed;
+    border-radius: 15px;
+    width: 936px;
+    height: 700px;
+}
+
+
