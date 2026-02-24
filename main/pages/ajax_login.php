@@ -10,14 +10,18 @@ $password = $_POST['password'] ?? '';
 if (empty($username) || empty($password)) {
     $response['message'] = '아이디와 비밀번호를 모두 입력해주세요.';
 } else {
-    $stmt = $mysqli->prepare("SELECT password_hash FROM admins WHERE username = ?");
+    $stmt = $mysqli->prepare("SELECT password_hash, role FROM admins WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($user = $result->fetch_assoc()) {
         if (password_verify($password, $user['password_hash'])) {
-            $_SESSION['admin_logged_in'] = true;
+            if ($user['role'] === 'admin') {
+                $_SESSION['admin_logged_in'] = true;
+            } else {
+                $_SESSION['user_logged_in'] = true;
+            }
             $response['success'] = true;
         } else {
             $response['message'] = '아이디 또는 비밀번호가 잘못되었습니다.';

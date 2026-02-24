@@ -2,9 +2,15 @@
 require_once '../includes/db.php';
 
 $post_id = intval($_GET['id'] ?? 0);
+$table_name = $_GET['table_name'] ?? 'gallery';
+$return_page = $_GET['return_page'] ?? 'gallery';
+
+$allowed_tables = ['gallery', 'a_gallery', 'b_gallery', 'c_gallery', 'd_gallery', 'e_gallery', 'chan_gallery'];
+if (!in_array($table_name, $allowed_tables)) { die("잘못된 게시판입니다."); }
+
 if ($post_id <= 0) { die("유효하지 않은 게시물 ID입니다."); }
 
-$stmt = $mysqli->prepare("SELECT * FROM gallery WHERE id = ?");
+$stmt = $mysqli->prepare("SELECT * FROM {$table_name} WHERE id = ?");
 $stmt->bind_param("i", $post_id);
 $stmt->execute();
 $post = $stmt->get_result()->fetch_assoc();
@@ -29,8 +35,8 @@ if (!$can_view) {
     
     <div class="post-meta">
         <?php if ($is_admin): ?>
-            <a href="#/gallery_edit?id=<?php echo $post_id; ?>" class="btn-action">수정</a>
-            <button class="btn-action delete-btn" data-id="<?php echo $post_id; ?>" data-type="<?php echo $post['gallery_type']; ?>">삭제</button>
+            <a href="#/gallery_edit?table_name=<?php echo htmlspecialchars($table_name); ?>&id=<?php echo $post_id; ?>&return_page=<?php echo htmlspecialchars($return_page); ?>" class="btn-action">수정</a>
+            <button class="btn-action delete-btn" data-id="<?php echo $post_id; ?>" data-table="<?php echo htmlspecialchars($table_name); ?>" data-return="<?php echo htmlspecialchars($return_page); ?>">삭제</button>
         <?php endif; ?>
     </div>
     
@@ -43,6 +49,6 @@ if (!$can_view) {
     </div>
     
     <div class="post-actions">
-        <a href="#/<?php echo htmlspecialchars($post['gallery_type']); ?>" class="btn-back-to-list">목록으로</a>
+        <a href="#/<?php echo htmlspecialchars($return_page); ?>" class="btn-back-to-list">목록으로</a>
     </div>
 </div>

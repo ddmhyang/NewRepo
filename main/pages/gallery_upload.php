@@ -1,12 +1,16 @@
 <?php
 require_once '../includes/db.php';
 if (!$is_admin) { die("권한이 없습니다."); }
-$gallery_type = $_GET['type'] ?? 'gallery';
+$table_name = $_GET['table_name'] ?? 'gallery';
+$gallery_type = $_GET['type'] ?? '1';
+$return_page = $_GET['return_page'] ?? 'gallery';
 ?>
 <div class="form-page-container">
-    <h2>새 글 작성 (<?php echo ucfirst($gallery_type); ?>)</h2>
+    <h2>새 글 작성</h2>
     <form class="ajax-form" action="ajax_save_gallery.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="table_name" value="<?php echo htmlspecialchars($table_name); ?>">
         <input type="hidden" name="gallery_type" value="<?php echo htmlspecialchars($gallery_type); ?>">
+        <input type="hidden" name="return_page" value="<?php echo htmlspecialchars($return_page); ?>">
         <div class="form-group">
             <label for="title">제목</label>
             <input type="text" id="title" name="title" required>
@@ -25,7 +29,7 @@ $gallery_type = $_GET['type'] ?? 'gallery';
             <textarea class="summernote" name="content"></textarea>
         </div>
         <button type="submit">저장하기</button>
-        <a class="cancel_btn" href="#/<?php echo htmlspecialchars($gallery_type); ?>">취소</a>
+        <a class="cancel_btn" href="#/<?php echo htmlspecialchars($return_page); ?>">취소</a>
     </form>
 </div>
 <script>
