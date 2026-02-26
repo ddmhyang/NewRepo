@@ -44,7 +44,7 @@ html {
     padding: 0;
     width: 100%;
     height: 100%;
-    background-color: rgb(0, 0, 0);
+    background-color: #FAF4E2;
     overflow: hidden;
     position: relative;
     visibility: hidden;
@@ -55,7 +55,7 @@ html {
     height: 900px;
     flex-shrink: 0;
     aspect-ratio: 1440/900;
-    background-size: cover;
+    background-size: contain;
     background-color: #FAF4E2;
     transform-origin: top left;
     position: absolute;
@@ -80,7 +80,7 @@ main::-webkit-scrollbar {
 }
 .page-container,
 .gallery-container, .form-page-container, .view-container,
-.password-form-container, .settings-container{
+.password-form-container, .guestbook-container, .black-container{
     color: #A10000;
     font-family: 'Fre3';
     font-size: 20px;
@@ -130,9 +130,13 @@ main::-webkit-scrollbar {
     padding: 8px 15px;
     font-size: 14px;
 }
-.btn-delete {
-    background-color: #A10000;
-    color: #fafafa;
+.btn-delete, .btn-secondary-guest {
+    background-color: #A10000 !important;
+    color: #fafafa !important;
+}
+
+.login_btn{
+    color: #A10000 !important;
 }
 
 /* 게시물 내 목록가기 버튼 */
@@ -210,7 +214,7 @@ main::-webkit-scrollbar {
     width: 100%;
     padding-top: 100%;
     background-color:#B1C8DA;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -221,90 +225,7 @@ main::-webkit-scrollbar {
     color: #A10000;
 }
 
-/* ----- TRPG TIMELINE ----- */
-.timeline-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-}
-.timeline-container > .add-btn{ /* add-btn 위치 재정의 */
-    position: absolute;
-    left: 770px;
-    top: 50px;
-    z-index: 50;
-}
-.timeline-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 0 50px;
-}
-.timeline-wrapper::-webkit-scrollbar {
-    display: none;
-}
-.timeline-events {
-    min-width: 750px;
-    display: inline-flex;
-    align-items: center;
-    height: 100%;
-    padding: 0 50px;
-    position: relative;
-    z-index: 2;
-    gap: 100px;
-}
-.timeline-line {
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background: #A10000;
-    top: 50%;
-    left: 0;
-    z-index: 1;
-}
-.timeline-item {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width: 150px;
-}
-.timeline-item.top {
-    justify-content: flex-end;
-    padding-bottom: 230px;
-}
-.timeline-item.bottom {
-    justify-content: flex-start;
-    padding-top: 320px;
-}
-.timeline-item a {
-    text-decoration: none;
-    color:#A10000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-.timeline-item .item-thumbnail {
-    width: 150px;
-    height: 150px;
-    flex-shrink: 0;
-    border-radius: 15px;
-    background-color: #A1000050;
-    background-size: cover;
-    background-position: center;
-    margin-bottom: 15px;
-}
-.item-text h3 {
-    font-size: 14px;
-    margin: 0;
-    max-width: 150px;
-    white-space: normal;
-    word-break: keep-all;
-}
+
 
 /* ----- FORMS ----- */
 .form-page-container, .view-container {
@@ -398,7 +319,7 @@ main::-webkit-scrollbar {
     flex-shrink: 0;
     border-radius: 26px 26px 0 0;
     background: linear-gradient(0deg, rgba(255, 255, 255, 0.80) 0%, rgba(255, 255, 255, 0.80) 100%), url('../img/phone_back.png') no-repeat center center;
-    background-size: cover;
+    background-size: contain;
     font-family: 'Fre3';
 }
 .chat-window {
@@ -430,7 +351,7 @@ main::-webkit-scrollbar {
     height: 50px;
     border-radius: 50%;
     background-color: #ccc;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     margin: 0 10px;
 }
@@ -505,11 +426,12 @@ main::-webkit-scrollbar {
     flex-shrink: 0;
     aspect-ratio: 316/83;
     background: url("../images/로고.png") no-repeat center center;
-    background-size: cover;
+    background-size: contain;
     transform-origin: top left;
     position: absolute;
     top: 32px;
     left: 101px;
+    display: flex;
 }
 
 .main_slog{
@@ -518,11 +440,12 @@ main::-webkit-scrollbar {
     flex-shrink: 0;
     aspect-ratio: 360/37;
     background: url("../images/슬로건.png") no-repeat center center;
-    background-size: cover;
+    background-size: contain;
     transform-origin: top left;
     position: absolute;
     top: 37px;
     left: 762px;
+    display: flex;
 }
 
 nav{
@@ -546,8 +469,9 @@ nav{
     height: 22px;
     aspect-ratio: 25/22;
     background: url("../images/채팅방.png") no-repeat center center;
-    background-size: cover;
+    background-size: contain;
     transform-origin: top left;
+    display: flex;
 }
 
 .main_login{
@@ -558,20 +482,49 @@ nav{
     height: 31px;
     aspect-ratio: 23/31;
     background: url("../images/로그인회원가입.png") no-repeat center center;
-    background-size: cover;
+    background-size: contain;
     transform-origin: top left;
+    display: flex;
 }
 
-.main_images{
+
+.main_images {
     position: absolute;
     top: 146px;
     left: 90px;
     width: 1260px;
     height: 639px;
-    aspect-ratio: 1260/639;
-    background: url("../images/MAIN PHOTO.png") no-repeat center center;
-    background-size: cover;
+    aspect-ratio: 1260 / 639;
+    overflow: hidden;
     transform-origin: top left;
+}
+
+
+.main_images_track {
+    display: flex;
+    width: 600%;
+    height: 100%;
+    animation: slideAnimation 15s infinite; 
+}
+
+
+.main_images_track .slide {
+    width: 1260px;
+    height: 100%;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+}
+
+
+@keyframes slideAnimation {
+    0%, 15%   { transform: translateX(0); }            
+    20%, 35%  { transform: translateX(-1260px); }      
+    40%, 55%  { transform: translateX(-2520px); }      
+    60%, 75%  { transform: translateX(-3780px); }      
+    80%, 95%  { transform: translateX(-5040px); }      
+    100%      { transform: translateX(-6300px); }      
 }
 
 .main_plus{
@@ -582,12 +535,12 @@ nav{
     height: 196px;
     aspect-ratio: 1104/196;
     background: url("../images/하단 팝업.png") no-repeat center center;
-    background-size: cover;
+    background-size: contain;
     transform-origin: top left;
 }
 
 
-.social_nav, .chem_nav, .manga_nav, .art_nav, .video_nav, .free_nav{
+.intro_nav, .universry_nav, .creative_nav, .art_nav, .video_nav, .free_nav{
     position: absolute;
     top: 157px;
     left: 101px;
@@ -602,16 +555,16 @@ nav{
     align-items: center;
 }
 
-.chem_nav, .video_nav{
+.universry_nav, .video_nav{
     gap:150px;
 }
 
-.manga_nav, .art_nav, .free_nav{
+.creative_nav, .art_nav, .free_nav{
     gap: 200px;
 }
 
 
-.social_page, .chem_page, .manga_page, .art_page, .video_page, .free_page{
+.intro_page, .universry_page, .creative_page, .art_page, .video_page, .free_page{
     position: absolute;
     top: 157px;
     left: 395px;
@@ -619,6 +572,272 @@ nav{
     border-radius: 15px;
     width: 936px;
     height: 700px;
+    padding: 50px;
+    overflow-y: auto;
+}
+
+.intro_page::-webkit-scrollbar, .universry_page::-webkit-scrollbar, .creative_page::-webkit-scrollbar, .art_page::-webkit-scrollbar, .video_page::-webkit-scrollbar, .free_page::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+}
+
+.guest_img1{
+    position: absolute;
+    top: 215px;
+    left: 38px;
+    width: 168px;
+    height: 174px;
+    aspect-ratio: 168/174;
+    background: url("../images/채팅방 데코1.png") no-repeat center center;
+    background-size: contain;
+    transform-origin: top left;
+}
+
+.guest_img2{
+    position: absolute;
+    top: 413px;
+    left: 59px;
+    width: 156px;
+    height: 234px;
+    aspect-ratio: 156/234;
+    background: url("../images/채팅방 데코2.png") no-repeat center center;
+    background-size: contain;
+    transform-origin: top left;
+}
+
+.guest_img3{
+    position: absolute;
+    top: 687px;
+    left: 62px;
+    width: 154px;
+    height: 152px;
+    aspect-ratio: 154/152;
+    background: url("../images/채팅방 데코3.png") no-repeat center center;
+    background-size: contain;
+    transform-origin: top left;
+}
+
+.guest_img4{
+    position: absolute;
+    top: 286px;
+    left: 1168px;
+    width: 255px;
+    height: 486px;
+    aspect-ratio: 255/486;
+    background: url("../images/채팅방 데코 겸 블랙 페이지 들어감.png") no-repeat center center;
+    background-size: contain;
+    transform-origin: top left;
 }
 
 
+.guest_box{
+    position: absolute;
+    top: 157px;
+    left: 280px;
+    width: 880px;
+    height: 700px;
+    background-color: #f7f5ed;
+    padding: 50px;
+    border-radius: 30px;
+    overflow-y: auto;
+}
+
+
+
+.guest_form_box {
+    position: absolute;
+    top: 570px;
+    left: 38px;
+    width: 803px;
+    height: 92px;
+    border-radius: 15px;
+    background-color: #f7f5ed;
+    border: 1px solid #960000;
+    
+   
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+.guest_form_box .ajax-form {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 15px;
+    align-items: center;
+}
+
+.guest_form_box .form-group {
+    flex-grow: 1;
+    height: 100%;
+    margin: 0;
+}
+
+.guest_form_box textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+    resize: none;
+    font-family: inherit;
+    font-size: 16px;
+    color: #960000;
+    padding: 5px 0;
+}
+
+
+.guestbook-entries {
+    position: absolute;
+    top: 50px; 
+    left: 37px;
+    width: 804px; 
+    height: 500px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+
+.guestbook-entries::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
+.entry {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+
+.entry-content-box {
+    min-width: 300px;
+    max-width: 804px;
+    min-height: 53px;
+    height: auto;
+    
+    background-color: #f7f5ed;
+    border: 1px solid #960000;
+    border-radius: 15px;
+    
+    padding: 17px;
+    box-sizing: border-box;
+    word-break: break-word;
+}
+
+.entry-content-box p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #960000;
+}
+
+
+.black-container{
+    width: 1440px;
+    height: 900px;
+    background-color: #0a0a0a;
+}
+
+
+.black_img{
+    width: 1260px;
+    height: 639px;
+    flex-shrink: 0;
+    aspect-ratio: 1260/639;
+    background: url("../images/블랙페이지 메인.png") no-repeat center center;
+    background-size: contain;
+    transform-origin: top left;
+    position: absolute;
+    top: 146px;
+    left: 90px;
+}
+
+.black_title{
+    width: 316px;
+    height: 83px;
+    flex-shrink: 0;
+    aspect-ratio: 316/83;
+    background: url("../images/블랙 페이지 로고.png") no-repeat center center;
+    background-size: contain;
+    transform-origin: top left;
+    position: absolute;
+    top: 32px;
+    left: 101px;
+}
+
+.black_plus{
+    width: 476px;
+    height: 252px;
+    flex-shrink: 0;
+    aspect-ratio: 476/252;
+    background: url("../images/블랙 페이지 슬로건.png") no-repeat center center;
+    background-size: contain;
+    transform-origin: top left;
+    position: absolute;
+    top: 23px;
+    left: 884px;
+}
+
+.black_popup{
+    width: 1102px;
+    height: 242px;
+    flex-shrink: 0;
+    aspect-ratio: 1102px/242px;
+    background: url("../images/블랙페이지 팝업.png") no-repeat center center;
+    background-size: contain;
+    transform-origin: top left;
+    position: absolute;
+    top: 657px;
+    left: 169px;
+}
+
+
+.black_btn{
+    width: 149px;
+    height: 41px;
+    flex-shrink: 0;
+    aspect-ratio: 149/41;
+    background: url("../images/별도 사이트 이동.png") no-repeat center center;
+    background-size: contain;
+    transform-origin: top left;
+    position: absolute;
+    top: 813px;
+    left: 646px;
+}
+
+
+
+.main_plus1{
+    position: absolute;
+    width: 344px;
+    height: 167px;
+    left: 180px;
+    top:704px
+}
+
+
+
+.main_plus2{
+    position: absolute;
+    width: 388px;
+    height: 167px;
+    left: 524px;
+    top:704px
+}
+
+
+
+.main_plus3{
+    position: absolute;
+    width: 344px;
+    height: 167px;
+    left: 912px;
+    top:704px
+}

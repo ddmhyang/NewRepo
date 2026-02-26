@@ -1,6 +1,5 @@
 $(document).ready(function() {
     const contentContainer = $('#content');
-    const chatOverlay = $('#chat-overlay');
 
 
     function loadPage(url) {
@@ -22,20 +21,27 @@ $(document).ready(function() {
     }
 
     function router() {
-        setTimeout(function() {
-            hljs.highlightAll();
-        }, 100); // 0.1초 딜레이
         const hash = window.location.hash.substring(2) || 'main_content';
         const [page, params] = hash.split('?');
         
-        if (page === 'chat') {
-            contentContainer.html('');
-            loadChat();
+        if (page === 'black') {
+            $('nav').css('display', 'none');
+            $('.main_title').css('display', 'none');
+            $('.main_slog').css('display', 'none');
+            $('.main_chat').css('display', 'none');
+            $('.main_login').css('display', 'none');
+            $('.container').css('background-color', '#0a0a0a');
         } else {
-            chatOverlay.hide();
-            const url = `${page}.php${params ? '?' + params : ''}`;
-            loadPage(url);
+            $('nav').css('display', 'flex');
+            $('.main_title').css('display', 'flex');
+            $('.main_slog').css('display', 'flex');
+            $('.main_chat').css('display', 'flex');
+            $('.main_login').css('display', 'flex');
+            $('.container').css('background-color', '#FAF4E2');
         }
+
+        const url = `${page}.php${params ? '?' + params : ''}`;
+        loadPage(url);
     }
 
 
@@ -48,25 +54,37 @@ $(document).ready(function() {
     });
 
 
-//이미지 업로드
     window.uploadSummernoteImage = function(file, editor) {
-        let data = new FormData();
-        data.append("file", file);
-        
-        return $.ajax({
-            url: 'ajax_upload_image.php',
-            type: "POST", data: data,
-            contentType: false, processData: false, dataType: 'json',
-            success: function(response) {
-                if (response.success && response.url) {
-                    $(editor).summernote('insertImage', response.url, function($image) {
-                        $image.css('width', '100%'); 
-                    });
-                } else {
-                    alert('이미지 업로드 실패: ' + (response.message || '알 수 없는 오류'));
+        return new Promise((resolve, reject) => {
+            let data = new FormData();
+            data.append("file", file);
+            
+            $.ajax({
+                url: 'ajax_upload_image.php',
+                type: "POST", data: data,
+                contentType: false, processData: false, dataType: 'json',
+                success: function(response) {
+                    if (response.success && response.url) {
+                        let imgNode = document.createElement('img');
+                        imgNode.src = response.url;
+                        imgNode.style.width = '100%';
+                        
+                        $(editor).summernote('insertNode', imgNode);
+                        
+                        let br = document.createElement('br');
+                        $(editor).summernote('insertNode', br);
+                        
+                        resolve(response.url); 
+                    } else {
+                        alert('이미지 업로드 실패: ' + (response.message || '알 수 없는 오류'));
+                        reject(response.message);
+                    }
+                },
+                error: function() {
+                    alert('이미지 업로드 중 서버 오류가 발생했습니다.');
+                    reject('error');
                 }
-            },
-            error: () => alert('이미지 업로드 중 서버 오류가 발생했습니다.')
+            });
         });
     };
 
@@ -146,13 +164,8 @@ function adjustScale() {
             windowHeight = window.innerHeight;
         let containerWidth,
             containerHeight;
-        if (windowWidth <= 784) {
-            containerWidth = 720;
-            containerHeight = 1280;
-        } else {
             containerWidth = 1440;
             containerHeight = 900;
-        }
         const scale = Math.min(
             windowWidth / containerWidth,
             windowHeight / containerHeight
