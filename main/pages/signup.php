@@ -12,7 +12,7 @@ if ($is_admin) {
             <input type="password" name="password" placeholder="가입할 비밀번호" required>
             
             <button type="submit">가입하기</button>
-            <button type="button" onclick="window.location.hash='#/login'">취소 (로그인으로)</button>
+            <button type="button" onclick="window.location.hash='#/login'">취소</button>
             <div id="signup-error" style="color:red; margin-top:10px;"></div>
         </form>
     </div>

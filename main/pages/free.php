@@ -5,8 +5,17 @@ $posts = $mysqli->query("SELECT id, title, thumbnail, is_private FROM e_gallery 
 ?>
 <div class="gallery-container">
     <div class="free_nav">
-        <a href="#/free" style="cursor: pointer; font-weight: bold;">심리의 이해</a>
-        <a href="#/free2" style="cursor: pointer;">자율</a>
+        <div style="font-weight: 500;">·심리학과
+            <a href="#/art" style="display: block; margin-bottom: 10px; cursor: pointer;">심리의 이해</a>
+        </div>
+        
+        <div style="font-weight: 500;">자율전공학과
+            <a href="#/art3" style="display: block; margin-bottom: 10px; cursor: pointer;">자율전공</a>
+        </div>
+        
+        <div style="font-weight: 500;">미디어영상학과
+            <a href="#/art3" style="display: block; margin-bottom: 10px; cursor: pointer;">플레이리스트</a>
+        </div>
     </div>
 
     <div class="free_page">

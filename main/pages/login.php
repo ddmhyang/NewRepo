@@ -10,7 +10,7 @@ if ($is_admin) {
         <form id="login-form" action="ajax_login.php" method="post">
             <input type="text" name="username" placeholder="아이디" required>
             <input type="password" name="password" placeholder="비밀번호" required>
-            <button type="submit">로그인</button>
+            <button type="submit" class="login_btn">로그인</button>
             <button type="button" onclick="window.location.hash='#/signup'">회원가입</button>
             <div id="login-error" style="color:red; margin-top:10px;"></div>
         </form>

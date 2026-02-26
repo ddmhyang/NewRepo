@@ -1,6 +1,6 @@
 <?php
 require_once '../includes/db.php';
-$gallery_type = '2';
+$gallery_type = '3';
 $posts = $mysqli->query("SELECT id, title, thumbnail, is_private FROM c_gallery WHERE gallery_type = '$gallery_type' ORDER BY created_at DESC")->fetch_all(MYSQLI_ASSOC);
 ?>
 <div class="gallery-container">

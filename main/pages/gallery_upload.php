@@ -50,8 +50,12 @@ $return_page = $_GET['return_page'] ?? 'gallery';
             height: 400,
             callbacks: {
                 onImageUpload: async function(files) {
-                    for (let i = 0; i < files.length; i++) {
-                        await uploadSummernoteImage(files[i], $(this));
+                    let sortedFiles = Array.from(files).sort((a, b) => 
+                        a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'})
+                    );
+
+                    for (let i = 0; i < sortedFiles.length; i++) {
+                        await uploadSummernoteImage(sortedFiles[i], $(this));
                     }
                 }
             },

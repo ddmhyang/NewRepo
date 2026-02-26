@@ -42,7 +42,6 @@ if (!$can_view) {
     
     <hr>
     
-    <div class="post-date">작성일: <?php echo date("Y-m-d", strtotime($post['created_at'])); ?></div>
     
     <div class="post-content">
         <?php echo $post['content']; ?>

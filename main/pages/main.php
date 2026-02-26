@@ -25,15 +25,14 @@
             <div class="main_title" onclick="location.href='#'" style="cursor: pointer;"></div>
             <div class="main_slog"></div>
             <nav>
-                <a href="#/social" style="cursor: pointer;">문예창작학과</a>
-                <a href="#/chem" style="cursor: pointer;">화확과</a>
-                <a href="#/manga" style="cursor: pointer;">만화과</a>
-                <a href="#/art" style="cursor: pointer;">시각디자인과</a>
-                <a href="#/video" style="cursor: pointer;">미디어영상학과</a>
-                <a href="#/free" style="cursor: pointer;">자율전공학과</a>
+                <a href="#/intro" style="cursor: pointer;">GRUA 소개</a>
+                <a href="#/universry" style="cursor: pointer;">대학생활</a>
+                <a href="#/creative" style="cursor: pointer;">창작학부</a>
+                <a href="#/art" style="cursor: pointer;">미술학부</a>
+                <a href="#/free" style="cursor: pointer;">자율전공학부</a>
             </nav>
             
-            <div class="main_chat" onclick="location.href='#chat'" style="cursor: pointer;"></div>
+            <div class="main_chat" onclick="location.href='#/guestbook'" style="cursor: pointer;"></div>
             <?php if ($is_admin || $is_user): ?>
                 <div class="main_login" onclick="location.href='logout.php'" style="cursor: pointer;"></div>
             <?php else: ?>
