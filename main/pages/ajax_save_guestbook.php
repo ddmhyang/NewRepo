@@ -9,9 +9,10 @@ if (empty($content)) {
     exit;
 }
 
-$stmt = $mysqli->prepare("INSERT INTO guestbook (content) VALUES (?)");
+$is_admin_flag = $is_admin ? 1 : 0; // 현재 글 쓰는 사람이 관리자인지 체크
 
-$stmt->bind_param("s", $content);
+$stmt = $mysqli->prepare("INSERT INTO guestbook (content, is_admin) VALUES (?, ?)");
+$stmt->bind_param("si", $content, $is_admin_flag);
 
 if ($stmt->execute()) {
     $new_entry_id = $stmt->insert_id;

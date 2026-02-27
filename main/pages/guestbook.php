@@ -1,6 +1,6 @@
 <?php
 require_once '../includes/db.php';
-$entries = $mysqli->query("SELECT * FROM guestbook ORDER BY created_at DESC")->fetch_all(MYSQLI_ASSOC);
+$entries = $mysqli->query("SELECT * FROM guestbook ORDER BY created_at ASC")->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <div class="guestbook-container">
@@ -22,9 +22,12 @@ $entries = $mysqli->query("SELECT * FROM guestbook ORDER BY created_at DESC")->f
             <?php foreach ($entries as $entry): ?>
                 <?php
                     $entry_class = $is_admin ? 'entry admin-entry' : 'entry';
-                ?>
-                <div class="<?php echo $entry_class; ?>" id="entry-<?php echo $entry['id']; ?>" data-id="<?php echo $entry['id']; ?>">
                     
+                    if (isset($entry['is_admin']) && $entry['is_admin'] == 1) {
+                        $entry_class .= ' admin-post';
+                    }
+                ?>
+                <div class="<?php echo $entry_class; ?>" id="entry-<?php echo $entry['id']; ?>" data-id="<?php echo $entry['id']; ?>">                    
                     <div class="entry-icon"></div>
 
                     <div class="entry-content-box">
@@ -40,6 +43,10 @@ $entries = $mysqli->query("SELECT * FROM guestbook ORDER BY created_at DESC")->f
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
+    var guestbookEntries = $('.guestbook-entries');
+    if (guestbookEntries.length > 0) {
+        guestbookEntries.scrollTop(guestbookEntries[0].scrollHeight);
+    }
     let pressTimer;
 
     $('.admin-entry').on('mousedown touchstart', function() {

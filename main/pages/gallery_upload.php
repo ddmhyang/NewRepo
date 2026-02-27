@@ -49,6 +49,29 @@ $return_page = $_GET['return_page'] ?? 'gallery';
         $('.summernote').summernote({
             height: 400,
             callbacks: {
+                onPaste: function (e) {
+                    var clipboardData = (e.originalEvent || e).clipboardData || window.clipboardData;
+                    var bufferText = clipboardData.getData('Text') || clipboardData.getData('text/plain');
+                    bufferText = bufferText.trim();
+                    
+                    var ytRegex = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|shorts\/|v\/|.*[?&]v=))([\w-]{11})/;
+                    var match = bufferText.match(ytRegex);
+
+                    if (match && match[1]) {
+                        e.preventDefault(); 
+                        var editor = $(this);
+                        
+                        setTimeout(function () {
+                            var wrapperHtml = '<div style="width: 50%; margin: 0 auto 15px auto;">' +
+                                            '<div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden;">' +
+                                            '<iframe src="https://www.youtube.com/embed/' + match[1] + '" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" allowfullscreen></iframe>' +
+                                            '</div></div>';
+                            
+                            editor.summernote('insertNode', $(wrapperHtml)[0]);
+                            editor.summernote('insertNode', $('<p><br></p>')[0]); 
+                        }, 10);
+                    }
+                },
                 onImageUpload: async function(files) {
                     let sortedFiles = Array.from(files).sort((a, b) => 
                         a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'})

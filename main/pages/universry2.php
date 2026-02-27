@@ -5,10 +5,10 @@ $posts = $mysqli->query("SELECT id, title, thumbnail, is_private FROM a_gallery 
 ?>
 <div class="gallery-container">
     <div class="universry_nav">
-        <a href="#/universry" style="cursor: pointer;">그림</a>
+        <a href="#/universry" style="cursor: pointer; margin-top: 78px;">공지사항</a>
         <a href="#/universry2" style="cursor: pointer; font-weight: bold;">학생회</a>
         <a href="#/universry3" style="cursor: pointer;">기숙사</a>
-        <a href="#/universry3" style="cursor: pointer;">교내 분실물/a>
+        <a href="#/universry4" style="cursor: pointer;">교내 분실물</a>
     </div>
 
     <div class="universry_page">
@@ -22,7 +22,7 @@ $posts = $mysqli->query("SELECT id, title, thumbnail, is_private FROM a_gallery 
                         $thumbnail_url = $post['thumbnail'] ?? '';
                         $style = !empty($thumbnail_url) 
                             ? "background-image: url('" . htmlspecialchars($thumbnail_url) . "');" 
-                            : "background-color: #7078A750;";
+                            : "background-color: #FAF4E2;";
                     ?>
                     <div class="item-thumbnail" style="<?php echo $style; ?>"></div>
                     <h3><?php echo htmlspecialchars($post['title']);?></h3>

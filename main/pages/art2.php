@@ -5,14 +5,12 @@ $posts = $mysqli->query("SELECT id, title, thumbnail, is_private FROM c_gallery 
 ?>
 <div class="gallery-container">
     <div class="art_nav">
-        <div style="font-weight: 500;">·회화과
-            <a href="#/art" style="display: block; margin-bottom: 10px; cursor: pointer;">회화</a>
-            <a href="#/art2" style="display: block; margin-bottom: 10px; cursor: pointer;">도트</a>
-        </div>
+        <a style="font-family:'fre9'; font-size:20px; text-align: center; margin-top: 41px; margin-bottom:15px;">·회화과</a>
+        <a href="#/art" style="margin-bottom: 13px; cursor: pointer; margin-left:23px;">회화</a>
+        <a href="#/art2" style="margin-bottom: 121px; cursor: pointer; margin-left:23px; font-weight: bold;">도트</a>
         
-        <div style="font-weight: 500;">·만화과
-            <a href="#/art3" style="display: block; margin-bottom: 10px; cursor: pointer;">스토리</a>
-        </div>
+        <a style="font-family:'fre9'; font-size:20px; text-align: center; margin-bottom:15px;">·만화과</a>
+        <a href="#/art3" style="cursor: pointer; margin-left:23px;">스토리</a>
     </div>
 
     <div class="art_page">
@@ -26,7 +24,7 @@ $posts = $mysqli->query("SELECT id, title, thumbnail, is_private FROM c_gallery 
                         $thumbnail_url = $post['thumbnail'] ?? '';
                         $style = !empty($thumbnail_url) 
                             ? "background-image: url('" . htmlspecialchars($thumbnail_url) . "');" 
-                            : "background-color: #7078A750;";
+                            : "background-color: #FAF4E2;";
                     ?>
                     <div class="item-thumbnail" style="<?php echo $style; ?>"></div>
                     <h3><?php echo htmlspecialchars($post['title']);?></h3>

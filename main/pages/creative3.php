@@ -5,7 +5,7 @@ $posts = $mysqli->query("SELECT id, title, thumbnail, is_private FROM b_gallery 
 ?>
 <div class="gallery-container">
     <div class="creative_nav">
-        <a style="font-weight: 500;">·문예창작학과</a>
+        <a style="font-family:'fre9'; text-align: center; font-size:20px; margin-left: 0px;">·문예창작학과</a>
         <a href="#/creative" style="cursor: pointer;">사랑의 언어와 행동</a>
         <a href="#/creative2" style="cursor: pointer;">수인 인권과 법</a>
         <a href="#/creative3" style="cursor: pointer; font-weight: bold;">자기 경영과 어필</a>
@@ -29,7 +29,7 @@ $posts = $mysqli->query("SELECT id, title, thumbnail, is_private FROM b_gallery 
                         $thumbnail_url = $post['thumbnail'] ?? '';
                         $style = !empty($thumbnail_url) 
                             ? "background-image: url('" . htmlspecialchars($thumbnail_url) . "');" 
-                            : "background-color: #7078A750;";
+                            : "background-color: #FAF4E2;";
                     ?>
                     <div class="item-thumbnail" style="<?php echo $style; ?>"></div>
                     <h3><?php echo htmlspecialchars($post['title']);?></h3>

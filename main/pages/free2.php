@@ -6,10 +6,10 @@ $posts = $mysqli->query("SELECT id, title, thumbnail, is_private FROM e_gallery 
 <div class="gallery-container">
     <div class="free_nav">
         <a style="font-family:'fre9'; font-size:20px; text-align: center; margin-top: 41px; margin-bottom:15px;">·심리학과</a>
-        <a href="#/free" style="margin-bottom: 153px; cursor: pointer; margin-left:23px; font-weight: bold;">심리의이해</a>
+        <a href="#/free" style="margin-bottom: 153px; cursor: pointer; margin-left:23px;">심리의이해</a>
 
         <a style="font-family:'fre9'; font-size:20px; text-align: center; margin-bottom:15px;">·자율전공학과</a>
-        <a href="#/free2" style="margin-bottom: 153px; cursor: pointer; margin-left:23px;">자율전공</a>
+        <a href="#/free2" style="margin-bottom: 153px; cursor: pointer; margin-left:23px; font-weight: bold;">자율전공</a>
         
         <a style="font-family:'fre9'; font-size:20px; text-align: center; margin-bottom:15px;">·미디어영상학과</a>
         <a href="#/free3" style="cursor: pointer; margin-left:23px;">플레이리스트</a>
