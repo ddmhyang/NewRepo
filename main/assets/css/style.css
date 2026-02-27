@@ -48,7 +48,6 @@ html {
     overflow: hidden;
     position: relative;
     visibility: hidden;
-    transition: background-color 1s ease-in-out;
 }
 .container{
     width: 1440px;
@@ -60,6 +59,7 @@ html {
     transform-origin: top left;
     position: absolute;
     transform: scale(0);
+    letter-spacing: 0.05em;
     font-family: 'Fre3';
     color:#A10000;
     transition: background-color 1s ease-in-out;
@@ -101,7 +101,7 @@ main::-webkit-scrollbar {
 
 /* ----- BUTTONS (통합된 부분) ----- */
 /* 1. 모든 버튼의 공통 스타일 */
-.btn, .btn-action, .add-btn, button[type="submit"], .cancel_btn{
+.btn, .btn-action, .add-btn, button[type="submit"], button[type="button"], .cancel_btn, .edit-btn{
     display: inline-block;
     padding: 12px 20px;
     font-family: 'Fre5';
@@ -118,11 +118,11 @@ main::-webkit-scrollbar {
 }
 
 /* 2. 색상 및 형태에 따른 스타일 */
-.btn-primary, .btn-action, .add-btn, button[type="submit"]  {
+.btn-primary, .btn-action, .add-btn, button[type="submit"], .edit-btn  {
     background-color:#A10000;
     color: #fafafa !important;
 }
-.btn-secondary, .btn-action.delete-btn, .cancel_btn {
+.btn-secondary, .btn-action.delete-btn, button[type="button"], .cancel_btn {
     background-color: #fafafa;
     color: #A10000 !important;
 }
@@ -213,7 +213,7 @@ main::-webkit-scrollbar {
 .item-thumbnail {
     width: 100%;
     padding-top: 100%;
-    background-color:#B1C8DA;
+    background-color:#FAF4E2;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -271,7 +271,7 @@ main::-webkit-scrollbar {
 }
 .login-form > form > input,
 .password_content > form > input {
-    color: #A10000;
+    color: #A10000 !important;
     width: 399px;
     height: 90px;
     flex-shrink: 0;
@@ -283,7 +283,7 @@ main::-webkit-scrollbar {
 }
 .login-form > form > button,
 .password_content > form > button {
-    color: #A10000;
+    color: #A10000 !important;
     width: 252px;
     height: 68px;
     flex-shrink: 0;
@@ -291,127 +291,21 @@ main::-webkit-scrollbar {
     border: 3px solid #A10000;
     background: rgba(255, 255, 255, 0.30);
     margin-top: 13px;
+    margin-right: 0 !important;
+    padding: 0;
+    font-family: 'Fre5';
+    font-size: 16px;
+    cursor: pointer;
 }
 
-/* ----- CHAT ----- */
-#chat-overlay {
+.login-container {
     position: absolute;
-    top: 224px;
-    left: 632px;
-    width: 490px;
-    height: 676px;
-    flex-shrink: 0;
-    border-radius: 30px 30px 0 0;
-    background: #111948;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
-#chat-overlay .chat-header {
-    cursor: pointer;
-    height: 30px;
-}
-.chat-container {
-    position: absolute;
-    top: 9.25px;
-    left: 10px;
-    width: 470px;
-    height: 666.752px;
-    flex-shrink: 0;
-    border-radius: 26px 26px 0 0;
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.80) 0%, rgba(255, 255, 255, 0.80) 100%), url('../img/phone_back.png') no-repeat center center;
-    background-size: contain;
-    font-family: 'Fre3';
-}
-.chat-window {
-    width: 470px;
-    height: 617px;
-    flex-grow: 1;
-    padding: 10px;
-    overflow-y: auto;
-}
-.chat-window::-webkit-scrollbar{
-    width: 0px;
-    height: 0px;
-}
-.message-row {
-    display: flex;
-    margin-bottom: 15px;
-    max-width: 70%;
-    align-items: flex-start;
-}
-.message-row.sent {
-    margin-left: auto;
-    flex-direction: row-reverse;
-}
-.message-row.received {
-    margin-right: auto;
-}
-.profile-pic {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #ccc;
-    background-size: contain;
-    background-position: center;
-    margin: 0 10px;
-}
-.message-bubble {
-    padding: 10px 15px;
-    border-radius: 18px;
-    position: relative;
-}
-.message-row.sent .message-bubble {
-    background: #A10000;
-    color: #fafafa !important;
-    border-top-right-radius: 5px;
-}
-.message-row.received .message-bubble {
-    background: #e9e9eb;
-    color: #333;
-    border-top-left-radius: 5px;
-}
-.character-name {
-    font-size: 12px;
-    font-family: 'Fre5';
-    margin-bottom: 5px;
-    color: #888;
-}
-.message-text {
-    margin: 0;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
-.chat-input-area {
-    padding-top: 10px;
-}
-.chat-input-area > form > select,
-.chat-input-area input::placeholder{
-    color: #A10000;
-}
-.chat-input-area form {
-    display: flex;
-}
-.chat-input-area select {
-    padding: 10px;
-    border: 1px solid #cccccc00;
-    border-top: 1px solid #A10000;
-    border-right: 1px solid #A10000;
-}
-.chat-input-area input {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #cccccc00;
-    border-top: 1px solid #A10000;
-    border-left: none;
-}
-.chat-input-area button {
-    padding: 10px 15px;
-    border: none;
-    border-top: 1px solid #A10000;
-    background: #A10000;
-    color: #fafafa !important;
-    cursor: pointer;
-}
+
 
 /* ----- ETC ----- */
 .note-modal-backdrop, .modal-backdrop {
@@ -444,7 +338,7 @@ main::-webkit-scrollbar {
     transform-origin: top left;
     position: absolute;
     top: 37px;
-    left: 762px;
+    left: 782px;
     display: flex;
 }
 
@@ -454,8 +348,8 @@ nav{
     left: 532px;
     display: flex;
     flex-direction: row;
-    gap: 37px;
-    font-size: 16px;
+    gap: 72px;
+    font-size: 17px;
     font-family: 'Fre3';
     color: #A10000 !important;
 }
@@ -464,7 +358,7 @@ nav{
 .main_chat{
     position: absolute;
     top: 82px;
-    left: 1225px;
+    left: 1255px;
     width: 25px;
     height: 22px;
     aspect-ratio: 25/22;
@@ -542,36 +436,61 @@ nav{
 
 .intro_nav, .universry_nav, .creative_nav, .art_nav, .video_nav, .free_nav{
     position: absolute;
-    top: 157px;
+    top: 151px;
     left: 101px;
     display: flex;
     flex-direction: column;
     gap: 100px;
-    background-color: #f7f5ed !important;
-    border-radius: 15px;
-    width: 240px;
-    height: 700px;
-    justify-content: center;
+    background-color: #fafafa !important;
+    border-radius: 50px;
+    width: 174px;
+    height: 722px;
+}
+
+.intro_nav{
+    gap:49px;
     align-items: center;
+    font-size: 16px;
 }
 
-.universry_nav, .video_nav{
-    gap:150px;
+.universry_nav{
+    gap:49px;
+    align-items: center;
+    font-size: 16px;
 }
 
-.creative_nav, .art_nav, .free_nav{
-    gap: 200px;
+.creative_nav{
+    gap:41px;
+    font-size: 16px;
+    justify-content: center;
+    text-align: left;
+}
+
+.creative_nav a{
+    margin-left: 23px;
+}
+
+.art_nav{
+    gap:0px;
+    text-align: left;
+    font-size: 16px;
+}
+
+.free_nav{
+    gap: 0px;
+    font-size: 16px;
+    text-align: left;
 }
 
 
 .intro_page, .universry_page, .creative_page, .art_page, .video_page, .free_page{
     position: absolute;
-    top: 157px;
-    left: 395px;
-    background-color: #f7f5ed;
-    border-radius: 15px;
-    width: 936px;
-    height: 700px;
+    top: 151px;
+    left: 293px;
+    background-color: #fafafa;
+    border-radius: 50px;
+    width: 1042px;
+    height: 722px;
     padding: 50px;
     overflow-y: auto;
 }
@@ -636,7 +555,7 @@ nav{
     left: 280px;
     width: 880px;
     height: 700px;
-    background-color: #f7f5ed;
+    background-color: #fafafa;
     padding: 50px;
     border-radius: 30px;
     overflow-y: auto;
@@ -651,10 +570,8 @@ nav{
     width: 803px;
     height: 92px;
     border-radius: 15px;
-    background-color: #f7f5ed;
+    background-color: #fafafa;
     border: 1px solid #960000;
-    
-   
     display: flex;
     align-items: center;
     padding: 10px 20px;
@@ -717,12 +634,12 @@ nav{
 
 
 .entry-content-box {
-    min-width: 300px;
-    max-width: 804px;
+    min-width: 150px;
+    max-width: 600px;
     min-height: 53px;
     height: auto;
     
-    background-color: #f7f5ed;
+    background-color: #fafafa;
     border: 1px solid #960000;
     border-radius: 15px;
     
@@ -736,6 +653,10 @@ nav{
     font-size: 16px;
     line-height: 1.5;
     color: #960000;
+}
+
+.entry.admin-post {
+    flex-direction: row-reverse;
 }
 
 
@@ -840,4 +761,13 @@ nav{
     height: 167px;
     left: 912px;
     top:704px
+}
+
+.post-content iframe {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9; 
+    display: block;
+    margin: 0 auto;
 }

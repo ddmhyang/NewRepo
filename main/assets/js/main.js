@@ -31,6 +31,7 @@ $(document).ready(function() {
             $('.main_chat').css('display', 'none');
             $('.main_login').css('display', 'none');
             $('.container').css('background-color', '#0a0a0a');
+            $('body').css('background-color', '#0a0a0a');
         } else {
             $('nav').css('display', 'flex');
             $('.main_title').css('display', 'flex');
@@ -38,6 +39,7 @@ $(document).ready(function() {
             $('.main_chat').css('display', 'flex');
             $('.main_login').css('display', 'flex');
             $('.container').css('background-color', '#FAF4E2');
+            $('body').css('background-color', '#FAF4E2');
         }
 
         const url = `${page}.php${params ? '?' + params : ''}`;
@@ -107,7 +109,7 @@ $(document).ready(function() {
             dataType: 'json',
             success: (response) => {
                 if (response.success) {
-                    alert(response.message || '성공적으로 처리되었습니다.');
+                    // alert(response.message || '성공적으로 처리되었습니다.');
                     if (response.redirect_url === 'reload') {
                         window.location.reload();
                     } else if (response.redirect_url) {
